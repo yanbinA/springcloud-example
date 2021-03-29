@@ -8,10 +8,11 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>order-service</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>storage-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order-service</name>
-    <description>order-service</description>
+    <name>storage-service</name>
+    <description>Storage Service</description>
 
     <dependencies>
         <dependency>

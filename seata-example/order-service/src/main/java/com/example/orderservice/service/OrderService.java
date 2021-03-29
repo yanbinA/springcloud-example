@@ -1,6 +1,7 @@
 package com.example.orderservice.service;
 
 import com.example.orderservice.entity.Order;
+import com.example.orderservice.feign.StorageFeignClient;
 import com.example.orderservice.mapper.OrderMapper;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.math.BigDecimal;
 public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private StorageFeignClient storageFeignClient;
 
     @Transactional(rollbackFor = Exception.class)
     @GlobalTransactional
@@ -24,7 +27,8 @@ public class OrderService {
                 .setUserId(userId)
                 .setCommodityCode(commodityCode)
                 .setCount(count)
-                .setMoney(BigDecimal.valueOf(10));
+                .setMoney(BigDecimal.valueOf(10).multiply(BigDecimal.valueOf(count)));
         orderMapper.insert(order);
+        storageFeignClient.deduct(commodityCode, count);
     }
 }

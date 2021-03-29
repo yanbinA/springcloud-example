@@ -1,9 +1,10 @@
-package com.example.orderservice.config;
+package com.example.storageservice.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import io.seata.rm.datasource.DataSourceProxy;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,21 +21,20 @@ import java.io.IOException;
  */
 @Configuration
 public class MyBatisConfig {
-    static final String BASEPACKAGE = "com.example.orderservice.mapper";
     private static final String MAPPER_LOCATION = "classpath*:mybatis/**/*-mapper.xml";
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
+    @ConfigurationProperties("spring.datasource")
     public DataSource baseDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         return druidDataSource;
     }
 
-    @Primary
+
     @Bean("dataSource")
-//    @Bean
-    public DataSourceProxy dataSourceProxy(DataSource druidDataSource) {
-        return new DataSourceProxy(druidDataSource);
+    @Primary
+    public DataSourceProxy dataSourceProxy(DataSource dataSource) {
+        return new DataSourceProxy(dataSource);
     }
 
     @Bean("sqlSessionFactory")
@@ -53,10 +53,8 @@ public class MyBatisConfig {
         return factory;
     }
 
-    @Bean
+    @Bean("sqlSessionTemplate")
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
-
-
 }

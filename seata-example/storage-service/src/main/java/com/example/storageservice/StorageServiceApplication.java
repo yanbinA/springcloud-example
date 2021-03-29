@@ -1,5 +1,6 @@
-package com.example.orderservice;
+package com.example.storageservice;
 
+import com.example.storageservice.config.MyBatisConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -9,10 +10,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-public class OrderServiceApplication {
+public class StorageServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class, args);
+        SpringApplication.run(StorageServiceApplication.class, args);
     }
 
 }
