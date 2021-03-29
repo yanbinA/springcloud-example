@@ -30,5 +30,8 @@ public class OrderService {
                 .setMoney(BigDecimal.valueOf(10).multiply(BigDecimal.valueOf(count)));
         orderMapper.insert(order);
         storageFeignClient.deduct(commodityCode, count);
+        if ("cb01".equals(commodityCode)) {
+            throw new RuntimeException("ERROR : place order fail");
+        }
     }
 }

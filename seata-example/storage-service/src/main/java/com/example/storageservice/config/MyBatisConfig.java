@@ -30,17 +30,17 @@ public class MyBatisConfig {
         return druidDataSource;
     }
 
-
-    @Bean("dataSource")
-    @Primary
-    public DataSourceProxy dataSourceProxy(DataSource dataSource) {
-        return new DataSourceProxy(dataSource);
-    }
+//    @Primary
+//    @Bean("dataSource")
+//    public DataSourceProxy dataSourceProxy(DataSource druidDataSource) {
+//        return new DataSourceProxy(druidDataSource);
+//    }
 
     @Bean("sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(DataSourceProxy dataSourceProxy) throws Exception {
+//    public SqlSessionFactory sqlSessionFactory(DataSourceProxy dataSourceProxy) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
-        bean.setDataSource(dataSourceProxy);
+        bean.setDataSource(dataSource);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         bean.setMapperLocations(resolver.getResources(MAPPER_LOCATION));
 

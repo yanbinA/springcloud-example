@@ -22,4 +22,10 @@ public class OrderController {
         orderService.placeOrder(order.getUserId(), order.getCommodityCode(), order.getCount());
         return true;
     }
+
+    @RequestMapping("rollback")
+    public boolean rollback(@RequestBody Order order) {
+        orderService.placeOrder(order.getUserId(), order.getCommodityCode(), order.getCount());
+        return true;
+    }
 }
