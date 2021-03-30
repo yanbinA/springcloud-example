@@ -1,5 +1,11 @@
 server:
   port: 9010
+  tomcat:
+    threads:
+      min-spare: 100
+      max: 600
+    max-connections: 8192
+    accept-count: 1000
 spring:
   application:
     name: @artifactId@
