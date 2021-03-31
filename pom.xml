@@ -29,6 +29,7 @@
 
     <modules>
         <module>seata-example</module>
+        <module>seata-tcc-example</module>
     </modules>
 
     <dependencyManagement>

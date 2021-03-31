@@ -1,0 +1,24 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: ${spring.profiles.active}
+    alibaba:
+      seata:
+        # seata\u670D\u52A1\u5206\u7EC4\uFF0C\u8981\u4E0E\u670D\u52A1\u7AEFnacos-config.txt\u4E2Dservice.vgroup_mapping\u7684\u540E\u7F00\u5BF9\u5E94
+        tx-service-group: my_test_tx_group
+  datasource:
+    url: jdbc:mysql://localhost:3306/seata_order?allowMultiQueries=true
+    username: root
+    password: 123456
+logging:
+  level:
+    io:
+      seata: info

@@ -1,4 +1,4 @@
-package com.example.orderservice.config;
+package com.example.tccorderservice.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
@@ -15,7 +15,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import javax.sql.DataSource;
 
 /**
- * Seata AT模式 需要对DataSource代理
+ * TCC模式 不需要DataSource代理
  * @author Depp
  */
 @Configuration
@@ -30,17 +30,10 @@ public class MyBatisConfig {
         return druidDataSource;
     }
 
-    @Primary
-    @Bean("dataSource")
-    public DataSourceProxy dataSourceProxy(DataSource druidDataSource) {
-        return new DataSourceProxy(druidDataSource);
-    }
-
     @Bean("sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(DataSourceProxy dataSourceProxy) throws Exception {
-//    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
-        bean.setDataSource(dataSourceProxy);
+        bean.setDataSource(dataSource);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         bean.setMapperLocations(resolver.getResources(MAPPER_LOCATION));
 
