@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -22,7 +24,7 @@ public class TccActionOrderImpl implements TccActionOrder {
     private OrderMapper orderMapper;
 
     @Override
-    //@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public boolean placeOrder(BusinessActionContext context, String userId, String commodityCode, Integer count) {
         Order order = new Order().setUserId(userId)
                 .setCommodityCode(commodityCode)

@@ -21,4 +21,4 @@ spring:
 logging:
   level:
     io:
-      seata: info
+      seata: error
